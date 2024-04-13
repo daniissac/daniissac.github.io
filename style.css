@@ -1,0 +1,99 @@
+body {
+  font-family: sans-serif;
+  background-color: #000;
+  color: #fff;
+}
+
+.header {
+  background-color: #000 !important;
+  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.2);
+  flex-wrap: nowrap;
+}
+
+.logo {
+  max-height: 50px;
+}
+
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-link.active {
+  font-weight: bold;
+}
+
+.nav-link:hover {
+  color: #90A4AE;
+}
+
+.section {
+  padding: 20px 0;
+  text-align: center;
+  color: #fff;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.section h1,
+.section h2 {
+  margin-bottom: 20px;
+  font-size: 3em;
+}
+
+.section-image {
+  max-width: 50%;
+  margin-bottom: 50px;
+}
+
+#intro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+}
+
+#intro h1 {
+  font-size: 4vw;
+}
+
+.experience-box {
+  background-color: #111;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.contact-info a {
+  color: #fff;
+}
+
+.contact-info a:hover {
+  color: #90A4AE;
+}
+
+
+link[rel~="icon"] {
+  size: 32px;
+}
+
+/* Transition effect styles */
+.transition-section {
+  opacity: 0;
+}
+
+.transition-section.in-view {
+  opacity: 1;
+}
+
+.education-box {
+  background-color: #111;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+
+.social-icons a {
+  padding: 20px;
+}
+
+
