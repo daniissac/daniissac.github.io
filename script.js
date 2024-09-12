@@ -1,25 +1,29 @@
 document.addEventListener('DOMContentLoaded', function() {
-  const sections = document.querySelectorAll('.transition-section');
+    const sections = document.querySelectorAll('.section');
+    const typed = new Typed('#typed-text', {
+        strings: ['Network Support Engineer', 'Cloud Support Engineer', 'Problem Solver'],
+        typeSpeed: 50,
+        backSpeed: 30,
+        loop: true
+    });
 
-  window.addEventListener('scroll', function() {
-    const scrollY = window.scrollY;
-    const windowHeight = window.innerHeight;
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+            } else {
+                entry.target.classList.remove('in-view');
+            }
+        });
+    }, observerOptions);
 
     sections.forEach(section => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.offsetHeight;
-      const sectionBottom = sectionTop + sectionHeight;
-
-      // Calculate visibility percentage
-      const visibilityPercentage = Math.min((scrollY - sectionTop + windowHeight) / sectionHeight, 1);
-
-      // Toggle "in-view" class based on visibility
-      if (visibilityPercentage >= 0.5) {
-        section.classList.add('in-view');
-      } else {
-        section.classList.remove('in-view');
-      }
+        observer.observe(section);
     });
-  });
 });
-
