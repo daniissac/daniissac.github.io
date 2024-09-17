@@ -2,8 +2,6 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #0f172a;
-    color: #e2e8f0;
 }
 
 .section {
@@ -22,4 +20,14 @@ body {
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+#intro img {
+    animation: float 3s ease-in-out infinite;
 }
