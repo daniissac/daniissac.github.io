@@ -28,6 +28,28 @@ body {
     100% { transform: translateY(0px); }
 }
 
+#intro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding-top: 80px; /* Adjust this value to fine-tune vertical centering */
+    box-sizing: border-box;
+}
+
 #intro img {
     animation: float 3s ease-in-out infinite;
+}
+
+/* Add responsive adjustments */
+@media (max-height: 700px) {
+    #intro {
+        padding-top: 40px;
+    }
+}
+
+@media (max-height: 600px) {
+    #intro {
+        padding-top: 20px;
+    }
 }
