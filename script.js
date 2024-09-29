@@ -17,6 +17,9 @@ document.addEventListener('DOMContentLoaded', function() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('in-view');
+                if (entry.target.id === 'experience') {
+                    animateTimeline();
+                }
             } else {
                 entry.target.classList.remove('in-view');
             }
@@ -26,4 +29,14 @@ document.addEventListener('DOMContentLoaded', function() {
     sections.forEach(section => {
         observer.observe(section);
     });
+
+    function animateTimeline() {
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        timelineItems.forEach((item, index) => {
+            setTimeout(() => {
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+            }, index * 300);
+        });
+    }
 });
