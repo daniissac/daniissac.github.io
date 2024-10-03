@@ -71,7 +71,7 @@ function displayProjects(data) {
     const projectsContainer = document.getElementById('projects-container');
     data.forEach(repo => {
         const projectCard = document.createElement('div');
-        projectCard.className = 'bg-white p-4 rounded shadow';
+        projectCard.className = 'bg-black p-4 rounded shadow';
         projectCard.innerHTML = `
             <h3 class="text-lg font-bold">${repo.name}</h3>
             <p class="text-sm text-gray-600">${repo.description || 'No description available'}</p>
