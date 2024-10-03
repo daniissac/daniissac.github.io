@@ -132,3 +132,19 @@ body {
         left: 23px;
     }
 }
+
+#projects {
+    background-color: #f3f4f6;
+    padding: 2rem 0;
+}
+
+#projects h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+#projects-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
