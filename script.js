@@ -44,39 +44,26 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function fetchGitHubProjects() {
-    const cachedData = localStorage.getItem('githubProjects');
-    if (cachedData) {
-        displayProjects(JSON.parse(cachedData));
-    } else {
-        fetch('https://api.github.com/users/daniissac/repos')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('GitHub API request failed');
-                }
-                return response.json();
-            })
-            .then(data => {
-                localStorage.setItem('githubProjects', JSON.stringify(data));
-                displayProjects(data);
-            })
-            .catch(error => {
-                console.error('Error fetching GitHub projects:', error);
-                const projectsContainer = document.getElementById('projects-container');
-                projectsContainer.innerHTML = '<p>Unable to load projects at this time. Please try again later.</p>';
+    fetch('https://api.github.com/users/daniissac/repos')
+        .then(response => response.json())
+        .then(data => {
+            const projectsContainer = document.getElementById('projects-container');
+            data.forEach(repo => {
+                const projectCard = document.createElement('div');
+                projectCard.className = 'timeline-item bg-white p-4 rounded shadow-lg mb-4 opacity-0 transform translate-y-4 transition-all duration-300 ease-in-out';
+                projectCard.innerHTML = `
+                    <h3 class="text-lg font-bold">${repo.name}</h3>
+                    <p class="text-sm text-gray-600">${repo.description || 'No description available'}</p>
+                    <a href="${repo.html_url}" target="_blank" class="text-blue-500 hover:underline">View on GitHub</a>
+                `;
+                projectsContainer.appendChild(projectCard);
+                
+                // Trigger animation
+                setTimeout(() => {
+                    projectCard.style.opacity = '1';
+                    projectCard.style.transform = 'translateY(0)';
+                }, 100);
             });
-    }
-}
-
-function displayProjects(data) {
-    const projectsContainer = document.getElementById('projects-container');
-    data.forEach(repo => {
-        const projectCard = document.createElement('div');
-        projectCard.className = 'bg-white p-4 rounded shadow';
-        projectCard.innerHTML = `
-            <h3 class="text-lg font-bold">${repo.name}</h3>
-            <p class="text-sm text-gray-600">${repo.description || 'No description available'}</p>
-            <a href="${repo.html_url}" target="_blank" class="text-blue-500 hover:underline">View on GitHub</a>
-        `;
-        projectsContainer.appendChild(projectCard);
-    });
+        })
+        .catch(error => console.error('Error fetching GitHub projects:', error));
 }
