@@ -48,7 +48,7 @@ While this is a personal portfolio, suggestions and feedback are welcome. Feel f
 
 ## 📄 License
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is open source and available under the [MIT License](LICENSE.txt).
 
 ## 📞 Contact
 
