@@ -56,17 +56,18 @@ function fetchGitHubProjects() {
                 return response.json();
             })
             .then(data => {
-                localStorage.setItem('githubProjects', JSON.stringify(data));
-                displayProjects(data);
+                const projectsWithPages = data.map(project => ({
+                    ...project,
+                    html_url: `https://daniissac.com/${project.name}`
+                }));
+                localStorage.setItem('githubProjects', JSON.stringify(projectsWithPages));
+                displayProjects(projectsWithPages);
             })
             .catch(error => {
                 console.error('Error fetching GitHub projects:', error);
-                const projectsContainer = document.getElementById('projects-container');
-                projectsContainer.innerHTML = '<p>Unable to load projects at this time. Please try again later.</p>';
             });
     }
 }
-
 function displayProjects(data) {
     const projectsContainer = document.getElementById('projects-container');
     data.forEach(repo => {
