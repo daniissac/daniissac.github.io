@@ -76,7 +76,7 @@ function displayProjects(data) {
         projectCard.innerHTML = `
             <h3 class="text-lg font-bold">${repo.name}</h3>
             <p class="text-sm text-gray-600">${repo.description || 'No description available'}</p>
-            <a href="${repo.html_url}" target="_blank" class="text-blue-500 hover:underline">View on GitHub</a>
+            <a href="${repo.html_url}" target="_blank" class="text-blue-500 hover:underline">View</a>
         `;
         projectsContainer.appendChild(projectCard);
     });
