@@ -56,7 +56,10 @@ function fetchGitHubProjects() {
                 return response.json();
             })
             .then(data => {
-                const projectsWithPages = data.map(project => ({
+                const filteredProjects = data.filter(project => 
+                    project.name !== 'daniissac' && project.name !== 'daniissac.github.io'
+                );
+                const projectsWithPages = filteredProjects.map(project => ({
                     ...project,
                     html_url: `https://daniissac.com/${project.name}`
                 }));
@@ -67,8 +70,7 @@ function fetchGitHubProjects() {
                 console.error('Error fetching GitHub projects:', error);
             });
     }
-}
-function displayProjects(data) {
+}function displayProjects(data) {
     const projectsContainer = document.getElementById('projects-container');
     data.forEach(repo => {
         const projectCard = document.createElement('div');
