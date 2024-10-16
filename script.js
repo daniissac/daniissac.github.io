@@ -57,11 +57,11 @@ function fetchGitHubProjects() {
             })
             .then(data => {
                 const filteredProjects = data.filter(project => 
-                    project.name !== 'daniissac' && project.name !== 'daniissac.github.io'
+                    project.name !== 'daniissac'
                 );
                 const projectsWithPages = filteredProjects.map(project => ({
                     ...project,
-                    html_url: `https://daniissac.com/${project.name}`
+                    html_url: `https://github.com/daniissac/${project.name}`
                 }));
                 localStorage.setItem('githubProjects', JSON.stringify(projectsWithPages));
                 displayProjects(projectsWithPages);
