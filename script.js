@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const sections = document.querySelectorAll('.section');
     const typed = new Typed('#typed-text', {
-        strings: ['Technical Support Engineer', 'Problem Solver', 'Consulting Engineer'],
+        strings: ['Network Support Engineer', 'Problem Solver', 'Consulting Engineer'],
         typeSpeed: 50,
         backSpeed: 30,
         loop: true
