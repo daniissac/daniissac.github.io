@@ -155,24 +155,22 @@ function displayProjects(data) {
     // Initialize Swiper with optimized configuration
     const swiper = new Swiper('.project-carousel', {
         slidesPerView: 1,
-        spaceBetween: 20,
+        spaceBetween: 10,
         centeredSlides: true,
         loop: true,
-        height: 80, // Added reduced height
+        autoHeight: true,
         autoplay: {
-            delay: 3000,
+            delay: 5000,
             disableOnInteraction: false,
         },
         breakpoints: {
             640: {
                 slidesPerView: 2,
-                spaceBetween: 20,
-                height: 80, // Height for tablet view
+                spaceBetween: 10,
             },
             1024: {
                 slidesPerView: 3,
-                spaceBetween: 30,
-                height: 80, // Height for desktop view
+                spaceBetween: 15,
             },
         }
     });
