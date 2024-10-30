@@ -33,7 +33,7 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    padding-top: 80px; /* Adjust this value to fine-tune vertical centering */
+    padding-top: 80px;
     box-sizing: border-box;
 }
 
@@ -41,7 +41,7 @@ body {
     animation: float 3s ease-in-out infinite;
 }
 
-/* Add responsive adjustments */
+/* Responsive adjustments */
 @media (max-height: 700px) {
     #intro {
         padding-top: 40px;
@@ -54,6 +54,7 @@ body {
     }
 }
 
+/* Timeline Styles */
 .timeline {
     position: relative;
     max-width: 800px;
@@ -96,8 +97,8 @@ body {
 }
 
 .timeline-content:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .timeline-dot {
@@ -109,13 +110,68 @@ body {
     top: 30px;
     right: -8px;
     z-index: 1;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.timeline-item:hover .timeline-dot {
+    transform: scale(1.2);
+    background: #64ffda;
 }
 
 .timeline-item:nth-child(even) .timeline-dot {
     left: -8px;
 }
 
-/* Responsive adjustments for timeline */
+/* Link and Button Interactions */
+a:not(.social-icon) {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+a:not(.social-icon)::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+    transition: width 0.3s ease;
+}
+
+a:not(.social-icon):hover::after {
+    width: 100%;
+}
+
+/* Social Icons Animation */
+.social-icon {
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-icon:hover {
+    transform: translateY(-3px);
+    color: #64ffda;
+}
+
+/* Projects Container */
+#projects-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Particles Background */
+#particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background: #0a192f;
+}
+
+/* Responsive Timeline */
 @media screen and (max-width: 768px) {
     .timeline::after {
         left: 31px;
@@ -131,20 +187,4 @@ body {
     .timeline-dot {
         left: 23px;
     }
-}
-
-#projects-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
-}
-
-#particles-js {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    background: #0a192f;
 }
