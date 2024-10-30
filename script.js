@@ -141,7 +141,7 @@ function displayProjects(data) {
         projectSlide.className = 'swiper-slide';
         
         const projectCard = document.createElement('div');
-        projectCard.className = 'project-card bg-black p-8 rounded-lg shadow-xl mx-4';
+        projectCard.className = 'project-card bg-black p-4 rounded-lg shadow-xl mx-4';
         projectCard.innerHTML = `
             <h3 class="text-lg font-bold">${repo.name}</h3>
             <p class="text-gray-400 text-sm overflow-auto">${repo.description || 'No description available'}</p>
@@ -152,27 +152,29 @@ function displayProjects(data) {
         projectsContainer.appendChild(projectSlide);
     });
 
-    // Initialize Swiper with minimal configuration
+    // Initialize Swiper with optimized configuration
     const swiper = new Swiper('.project-carousel', {
         slidesPerView: 1,
-        spaceBetween: 30,
+        spaceBetween: 20,
         centeredSlides: true,
         loop: true,
         autoplay: {
-            delay: 3000,
+            delay: 5000,
             disableOnInteraction: false,
         },
         breakpoints: {
             640: {
                 slidesPerView: 2,
+                spaceBetween: 20,
             },
             1024: {
                 slidesPerView: 3,
+                spaceBetween: 30,
             },
         }
     });
 
-    // Initialize vanilla-tilt
+    // Initialize vanilla-tilt with refined values
     VanillaTilt.init(document.querySelectorAll(".project-card"), {
         max: 15,
         speed: 300,
