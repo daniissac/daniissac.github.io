@@ -114,8 +114,13 @@ body {
     padding: 10px;  /* Reduced padding */
 }
 
+.swiper-slide {
+    height: 180px;
+}
+
 .project-card {
-    height: 200px;  /* Reduced height from 300px */
+    height: 100%;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
