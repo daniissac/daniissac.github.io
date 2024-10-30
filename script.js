@@ -143,8 +143,8 @@ function displayProjects(data) {
         const projectCard = document.createElement('div');
         projectCard.className = 'project-card bg-black p-8 rounded-lg shadow-xl mx-4';
         projectCard.innerHTML = `
-            <h3 class="text-xl font-bold mb-4">${repo.name}</h3>
-            <p class="text-gray-400 mb-4 h-20 overflow-auto">${repo.description || 'No description available'}</p>
+            <h3 class="text-lg font-bold mb-2">${repo.name}</h3>
+            <p class="text-gray-400 mb-2 h-16 overflow-auto">${repo.description || 'No description available'}</p>
             <a href="${repo.html_url}" target="_blank" class="inline-block text-blue-500 hover:underline">View Project →</a>
         `;
         
