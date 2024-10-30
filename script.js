@@ -152,7 +152,7 @@ function displayProjects(data) {
         projectsContainer.appendChild(projectSlide);
     });
 
-    // Initialize Swiper
+    // Initialize Swiper with minimal configuration
     const swiper = new Swiper('.project-carousel', {
         slidesPerView: 1,
         spaceBetween: 30,
@@ -161,10 +161,6 @@ function displayProjects(data) {
         autoplay: {
             delay: 3000,
             disableOnInteraction: false,
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
         },
         breakpoints: {
             640: {
