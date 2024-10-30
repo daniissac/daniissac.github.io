@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Existing Typed.js initialization
     const sections = document.querySelectorAll('.section');
     const typed = new Typed('#typed-text', {
         strings: ['Network Support Engineer', 'Problem Solver', 'Consulting Engineer'],
@@ -7,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
         loop: true
     });
 
+    // Existing intersection observer setup
     const observerOptions = {
         root: null,
         rootMargin: '0px',
@@ -30,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(section);
     });
 
+    // Existing timeline animation
     function animateTimeline() {
         const timelineItems = document.querySelectorAll('.timeline-item');
         timelineItems.forEach((item, index) => {
@@ -40,7 +43,66 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Existing GitHub projects fetch
     fetchGitHubProjects();
+
+    // Initialize particles.js
+    particlesJS('particles-js', {
+        particles: {
+            number: {
+                value: 50,
+                density: {
+                    enable: true,
+                    value_area: 800
+                }
+            },
+            color: {
+                value: '#64ffda'
+            },
+            shape: {
+                type: 'circle'
+            },
+            opacity: {
+                value: 0.5,
+                random: false
+            },
+            size: {
+                value: 3,
+                random: true
+            },
+            line_linked: {
+                enable: true,
+                distance: 150,
+                color: '#64ffda',
+                opacity: 0.4,
+                width: 1
+            },
+            move: {
+                enable: true,
+                speed: 3,
+                direction: 'none',
+                random: false,
+                straight: false,
+                out_mode: 'out',
+                bounce: false
+            }
+        },
+        interactivity: {
+            detect_on: 'canvas',
+            events: {
+                onhover: {
+                    enable: true,
+                    mode: 'grab'
+                },
+                onclick: {
+                    enable: true,
+                    mode: 'push'
+                },
+                resize: true
+            }
+        },
+        retina_detect: true
+    });
 });
 
 function fetchGitHubProjects() {
@@ -70,7 +132,9 @@ function fetchGitHubProjects() {
                 console.error('Error fetching GitHub projects:', error);
             });
     }
-}function displayProjects(data) {
+}
+
+function displayProjects(data) {
     const projectsContainer = document.getElementById('projects-container');
     data.forEach(repo => {
         const projectCard = document.createElement('div');
