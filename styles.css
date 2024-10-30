@@ -157,27 +157,3 @@ body {
     padding: 20px;
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 }
-
-.custom-cursor {
-    width: 20px;
-    height: 20px;
-    background: transparent;
-    border: 2px solid #64ffda;
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-}
-
-.cursor-trail {
-    width: 10px;
-    height: 10px;
-    background: rgba(100, 255, 218, 0.3);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 9998;
-    transition: all 0.1s ease;
-    transform: translate(-50%, -50%);
-}
