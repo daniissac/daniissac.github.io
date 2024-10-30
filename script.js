@@ -137,14 +137,47 @@ function fetchGitHubProjects() {
 function displayProjects(data) {
     const projectsContainer = document.getElementById('projects-container');
     data.forEach(repo => {
+        const projectSlide = document.createElement('div');
+        projectSlide.className = 'swiper-slide';
+        
         const projectCard = document.createElement('div');
-        projectCard.className = 'project-card bg-black p-4 rounded shadow';
+        projectCard.className = 'project-card bg-black p-8 rounded-lg shadow-xl mx-4';
         projectCard.innerHTML = `
-            <h3 class="text-lg font-bold">${repo.name}</h3>
-            <p class="text-sm text-gray-600">${repo.description || 'No description available'}</p>
-            <a href="${repo.html_url}" target="_blank" class="text-blue-500 hover:underline">View</a>
+            <h3 class="text-xl font-bold mb-4">${repo.name}</h3>
+            <p class="text-gray-400 mb-4 h-20 overflow-auto">${repo.description || 'No description available'}</p>
+            <a href="${repo.html_url}" target="_blank" class="inline-block text-blue-500 hover:underline">View Project →</a>
         `;
-        projectsContainer.appendChild(projectCard);
+        
+        projectSlide.appendChild(projectCard);
+        projectsContainer.appendChild(projectSlide);
+    });
+
+    // Initialize Swiper
+    const swiper = new Swiper('.project-carousel', {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        centeredSlides: true,
+        loop: true,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        breakpoints: {
+            640: {
+                slidesPerView: 2,
+            },
+            1024: {
+                slidesPerView: 3,
+            },
+        }
     });
 
     // Initialize vanilla-tilt
