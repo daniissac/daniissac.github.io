@@ -103,23 +103,6 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         retina_detect: true
     });
-
-    // Custom cursor initialization
-    const cursor = document.createElement('div');
-    const cursorTrail = document.createElement('div');
-    cursor.className = 'custom-cursor';
-    cursorTrail.className = 'cursor-trail';
-    document.body.appendChild(cursor);
-    document.body.appendChild(cursorTrail);
-
-    document.addEventListener('mousemove', e => {
-        requestAnimationFrame(() => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            cursorTrail.style.left = e.clientX + 'px';
-            cursorTrail.style.top = e.clientY + 'px';
-        });
-    });
 });
 
 function fetchGitHubProjects() {
