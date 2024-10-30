@@ -124,14 +124,6 @@ body {
     transition: transform 0.3s ease;
 }
 
-.swiper-pagination-bullet {
-    background: #64ffda;
-}
-
-.swiper-pagination-bullet-active {
-    background: #3b82f6;
-}
-
 /* Link and Button Interactions */
 a:not(.social-icon) {
     position: relative;
