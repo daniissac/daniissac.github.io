@@ -158,18 +158,21 @@ function displayProjects(data) {
         spaceBetween: 20,
         centeredSlides: true,
         loop: true,
+        height: 80, // Added reduced height
         autoplay: {
-            delay: 5000,
+            delay: 3000,
             disableOnInteraction: false,
         },
         breakpoints: {
             640: {
                 slidesPerView: 2,
                 spaceBetween: 20,
+                height: 80, // Height for tablet view
             },
             1024: {
                 slidesPerView: 3,
                 spaceBetween: 30,
+                height: 80, // Height for desktop view
             },
         }
     });
