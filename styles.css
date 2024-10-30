@@ -111,11 +111,11 @@ body {
 
 /* Project Carousel Styles */
 .project-carousel {
-    padding: 10px;  /* Reduced padding */
+    padding: 10px;
 }
 
 .swiper-slide {
-    height: 120px; /* Reduced height to match content */
+    height: 120px;
 }
 
 .project-card {
@@ -126,9 +126,22 @@ body {
     justify-content: space-between;
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
 }
 
+.project-card:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 640px) {
+    .project-carousel {
+        padding: 5px;
+    }
+    .project-card {
+        padding: 0.75rem;
+    }
+}
 /* Link and Button Interactions */
 a:not(.social-icon) {
     position: relative;
