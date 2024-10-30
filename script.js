@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Existing Typed.js initialization
+    // Typed.js initialization
     const sections = document.querySelectorAll('.section');
     const typed = new Typed('#typed-text', {
         strings: ['Network Support Engineer', 'Problem Solver', 'Consulting Engineer'],
@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
         loop: true
     });
 
-    // Existing intersection observer setup
+    // Intersection observer setup
     const observerOptions = {
         root: null,
         rootMargin: '0px',
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(section);
     });
 
-    // Existing timeline animation
+    // Timeline animation
     function animateTimeline() {
         const timelineItems = document.querySelectorAll('.timeline-item');
         timelineItems.forEach((item, index) => {
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Existing GitHub projects fetch
+    // GitHub projects fetch
     fetchGitHubProjects();
 
     // Initialize particles.js
@@ -103,6 +103,23 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         retina_detect: true
     });
+
+    // Custom cursor initialization
+    const cursor = document.createElement('div');
+    const cursorTrail = document.createElement('div');
+    cursor.className = 'custom-cursor';
+    cursorTrail.className = 'cursor-trail';
+    document.body.appendChild(cursor);
+    document.body.appendChild(cursorTrail);
+
+    document.addEventListener('mousemove', e => {
+        requestAnimationFrame(() => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            cursorTrail.style.left = e.clientX + 'px';
+            cursorTrail.style.top = e.clientY + 'px';
+        });
+    });
 });
 
 function fetchGitHubProjects() {
@@ -138,12 +155,21 @@ function displayProjects(data) {
     const projectsContainer = document.getElementById('projects-container');
     data.forEach(repo => {
         const projectCard = document.createElement('div');
-        projectCard.className = 'bg-black p-4 rounded shadow';
+        projectCard.className = 'glass-card project-card bg-black p-4 rounded shadow';
         projectCard.innerHTML = `
             <h3 class="text-lg font-bold">${repo.name}</h3>
             <p class="text-sm text-gray-600">${repo.description || 'No description available'}</p>
             <a href="${repo.html_url}" target="_blank" class="text-blue-500 hover:underline">View</a>
         `;
         projectsContainer.appendChild(projectCard);
+    });
+
+    // Initialize vanilla-tilt
+    VanillaTilt.init(document.querySelectorAll(".project-card"), {
+        max: 15,
+        speed: 300,
+        glare: true,
+        "max-glare": 0.3,
+        scale: 1.05
     });
 }
