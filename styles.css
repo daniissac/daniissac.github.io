@@ -114,10 +114,6 @@ body {
     padding: 10px;  /* Reduced padding */
 }
 
-.swiper-slide {
-    height: 180px;
-}
-
 .project-card {
     height: 100%;
     padding: 1rem;
