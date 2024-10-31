@@ -9,26 +9,36 @@ Welcome to the repository for my personal portfolio website. This site showcases
 - Interactive timeline for work experience
 - Typed.js integration for dynamic text animation
 - Smooth scrolling navigation
+- Locally served dependencies for faster loading
 
 ## 🛠 Technologies Used
 
 - HTML5
 - CSS3 (with Tailwind CSS utility classes)
 - JavaScript (ES6+)
-- [Typed.js](https://github.com/mattboldt/typed.js/) for text animations
+- Typed.js for text animations
+- Particles.js for background effects
+- Swiper for project carousel
+- VanillaTilt for card effects
+- Font Awesome for icons
+- Google Fonts for typography
 
 ## 📂 Project Structure
-
 ```
-portfolio-website/
 │
 ├── index.html          # Main HTML file
-├── styles.css          # CSS styles
-├── script.js           # JavaScript file
-├── resume.pdf          # Downloadable resume
-├── bitmoji.png         # Profile image
-├── favicon.ico         # Favicon
-└── README.md           # This file
+├── css/               # CSS directory
+│   └── styles.css     # Main stylesheet
+├── js/                # JavaScript directory
+│   └── script.js      # Main JavaScript file
+├── lib/               # Libraries directory
+├── assets/            # Assets directory
+│   ├── images/        # Images directory
+│   │   ├── bitmoji.png    # Profile image
+│   │   └── favicon.ico    # Favicon
+│   └── docs/          # Documents directory
+│       └── resume.pdf     # Downloadable resume
+└── README.md          # This file
 ```
 
 ## 🔧 Customization
