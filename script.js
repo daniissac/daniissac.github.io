@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Typed.js initialization
     const sections = document.querySelectorAll('.section');
     const typed = new Typed('#typed-text', {
-        strings: ['Network Support Engineer', 'Problem Solver', 'Consulting Engineer'],
+        strings: ['Technical Content Developer', 'Problem Solver', 'Network Engineer', 'Technical Consultant'],
         typeSpeed: 50,
         backSpeed: 30,
         loop: true
