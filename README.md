@@ -1,17 +1,16 @@
 # Dani Issac's Portfolio Website
 
-Welcome to the repository for my personal portfolio website. This site showcases my professional experience, skills, and contact information using pure vanilla web technologies.
+Welcome to the repository for my personal portfolio website. 
 
 ## 🌟 Features
 
-- Responsive design
+- Fully responsive design for mobile, tablet, and desktop
+- Mobile-friendly navigation with animated hamburger menu
 - Custom vanilla JavaScript animations
-- Interactive timeline for work experience
 - Custom typewriter effect
-- Particle background effect
 - GitHub projects integration with caching
 - Smooth scrolling navigation
-- Dark theme with modern aesthetics
+- Touch-optimized interface for mobile devices
 
 ## 🛠 Technologies Used
 
@@ -20,28 +19,26 @@ Welcome to the repository for my personal portfolio website. This site showcases
 - Vanilla JavaScript (ES6+)
 - Custom animations and effects
 - No external dependencies
+- Mobile-first approach
 
 ## 📂 Project Structure
 │
-├── index.html          # Main HTML file
+├── index.html         # Main HTML file
 ├── styles.css         # Main stylesheet
 ├── script.js          # Main JavaScript file
-├── assets/            # Assets directory
-│   ├── bitmoji.png    # Profile image
-│   └── favicon.ico    # Favicon
+├── favicon.svg        # Favicon
 ├── resume.pdf         # Downloadable resume
 └── README.md          # This file
 
-## 🔧 Customization
+## 📱 Mobile-Friendly Features
 
-To customize this portfolio for your own use:
-
-1. Update the personal information in `index.html`
-2. Modify the styles in `styles.css` to match your preferred color scheme
-3. Update the work experience in the timeline section
-4. Replace `bitmoji.png` with your own profile picture
-5. Update `resume.pdf` with your own resume
-6. Modify the typewriter strings in `script.js`
+- Responsive hamburger menu with smooth animations
+- Optimized touch targets for better mobile interaction
+- Adaptive typography for different screen sizes
+- Content prioritization on smaller screens
+- Performance optimized for mobile networks
+- Improved scrolling and navigation experience
+- Prevents body scrolling when mobile menu is open
 
 ## 🚀 Performance Features
 
@@ -49,8 +46,14 @@ To customize this portfolio for your own use:
 - Lightweight and fast-loading
 - Efficient DOM manipulation
 - Local storage caching for GitHub projects
-- Optimized animations using requestAnimationFrame
 - Progressive enhancement approach
+- Optimized rendering with CSS transforms
+
+## 🔄 Browser Compatibility
+
+- Chrome, Firefox, Safari, Edge (latest versions)
+- iOS Safari and Android Chrome
+- Graceful degradation for older browsers
 
 ## 🤝 Contributing
 
@@ -59,10 +62,6 @@ While this is a personal portfolio, suggestions and feedback are welcome. Feel f
 ## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
-
-## 📞 Contact
-
-Dani Issac - [reachme@daniissac.com](mailto:reachme@daniissac.com)
 
 ---
 

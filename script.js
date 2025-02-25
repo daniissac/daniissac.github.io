@@ -1,11 +1,38 @@
 document.addEventListener('DOMContentLoaded', function() {
     initTypewriter();
-    initIntersectionObserver();
-    initParticles();
+    initScrollAnimations();
     fetchGitHubProjects();
+    initMobileMenu();
+    
+    // Set current year in footer
+    document.getElementById('current-year').textContent = new Date().getFullYear();
 });
 
-// Custom typewriter implementation
+// Mobile menu functionality
+function initMobileMenu() {
+    const mobileMenuToggle = document.getElementById('mobile-menu');
+    const navLinks = document.getElementById('nav-links');
+    const navLinkItems = document.querySelectorAll('.nav-links a');
+    
+    mobileMenuToggle.addEventListener('click', function() {
+        navLinks.classList.toggle('active');
+        document.body.classList.toggle('no-scroll');
+        
+        // Toggle hamburger to X animation
+        this.classList.toggle('active');
+    });
+    
+    // Close menu when a link is clicked
+    navLinkItems.forEach(link => {
+        link.addEventListener('click', function() {
+            navLinks.classList.remove('active');
+            mobileMenuToggle.classList.remove('active');
+            document.body.classList.remove('no-scroll');
+        });
+    });
+}
+
+// Typewriter effect
 function initTypewriter() {
     const texts = ['Technical Content Developer', 'Problem Solver', 'Network Engineer', 'Technical Consultant'];
     const typedTextElement = document.getElementById('typed-text');
@@ -41,121 +68,47 @@ function initTypewriter() {
     type();
 }
 
-// Intersection Observer for animations
-function initIntersectionObserver() {
-    const sections = document.querySelectorAll('section');
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('in-view');
-                if (entry.target.id === 'experience') {
-                    animateTimeline();
-                }
+// Smooth scroll for navigation links
+function initScrollAnimations() {
+    const navLinks = document.querySelectorAll('nav a[href^="#"]');
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                const headerOffset = 80;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
             }
         });
-    }, observerOptions);
-
-    sections.forEach(section => observer.observe(section));
-}
-
-// Timeline animation
-function animateTimeline() {
-    const timelineItems = document.querySelectorAll('.timeline-item');
-    timelineItems.forEach((item, index) => {
-        setTimeout(() => {
-            item.classList.add('visible');
-        }, index * 300);
     });
-}
-
-// Particles background
-function initParticles() {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    const particlesContainer = document.getElementById('particles-js');
     
-    particlesContainer.appendChild(canvas);
-    
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    const particles = [];
-    const particleCount = 50;
-    const colors = ['#64ffda'];
-    
-    class Particle {
-        constructor() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.vx = (Math.random() - 0.5) * 2;
-            this.vy = (Math.random() - 0.5) * 2;
-            this.radius = Math.random() * 2 + 1;
-            this.color = colors[Math.floor(Math.random() * colors.length)];
-        }
-
-        draw() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = this.color;
-            ctx.fill();
-        }
-
-        update() {
-            this.x += this.vx;
-            this.y += this.vy;
-
-            if (this.x < 0 || this.x > canvas.width) this.vx = -this.vx;
-            if (this.y < 0 || this.y > canvas.height) this.vy = -this.vy;
-        }
-    }
-
-    function init() {
-        for (let i = 0; i < particleCount; i++) {
-            particles.push(new Particle());
-        }
-    }
-
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Add active class to nav links based on scroll position
+    window.addEventListener('scroll', function() {
+        const sections = document.querySelectorAll('section');
+        const scrollPosition = window.scrollY + 200;
         
-        particles.forEach(particle => {
-            particle.update();
-            particle.draw();
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                document.querySelector(`nav a[href="#${sectionId}"]`)?.classList.add('active');
+            } else {
+                document.querySelector(`nav a[href="#${sectionId}"]`)?.classList.remove('active');
+            }
         });
-
-        // Draw connections
-        particles.forEach((p1, i) => {
-            particles.slice(i + 1).forEach(p2 => {
-                const dx = p1.x - p2.x;
-                const dy = p1.y - p2.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-
-                if (distance < 150) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = `rgba(100, 255, 218, ${1 - distance/150})`;
-                    ctx.lineWidth = 1;
-                    ctx.moveTo(p1.x, p1.y);
-                    ctx.lineTo(p2.x, p2.y);
-                    ctx.stroke();
-                }
-            });
-        });
-
-        requestAnimationFrame(animate);
-    }
-
-    init();
-    animate();
-
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
     });
 }
 
@@ -171,6 +124,9 @@ function fetchGitHubProjects() {
         return;
     }
 
+    // Show loading indicator
+    projectsContainer.innerHTML = '<div class="loading">Loading projects...</div>';
+
     fetch('https://api.github.com/users/daniissac/repos')
         .then(response => {
             if (!response.ok) throw new Error('GitHub API request failed');
@@ -181,8 +137,8 @@ function fetchGitHubProjects() {
                 .filter(project => project.name !== 'daniissac')
                 .map(project => ({
                     name: project.name,
-                    description: project.description,
-                    html_url: `https://github.com/daniissac/${project.name}`
+                    description: project.description || 'No description available',
+                    html_url: project.html_url || `https://github.com/daniissac/${project.name}`
                 }));
 
             // Cache for 1 hour
@@ -201,6 +157,11 @@ function displayProjects(projects) {
     const container = document.getElementById('projects-container');
     container.innerHTML = '';
     
+    if (!projects || projects.length === 0) {
+        container.innerHTML = '<p>No projects available at the moment.</p>';
+        return;
+    }
+    
     const projectsGrid = document.createElement('div');
     projectsGrid.className = 'projects-grid';
 
@@ -209,41 +170,12 @@ function displayProjects(projects) {
         card.className = 'project-card';
         card.innerHTML = `
             <h3>${project.name}</h3>
-            <p>${project.description || 'No description available'}</p>
+            <p>${project.description}</p>
             <a href="${project.html_url}" target="_blank" rel="noopener noreferrer">View Project →</a>
         `;
-        
-        // Add tilt effect
-        addTiltEffect(card);
         
         projectsGrid.appendChild(card);
     });
 
     container.appendChild(projectsGrid);
-}
-
-// Custom tilt effect
-function addTiltEffect(element) {
-    let rect = element.getBoundingClientRect();
-    let mouseX = 0;
-    let mouseY = 0;
-
-    element.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX - rect.left;
-        mouseY = e.clientY - rect.top;
-        
-        const xRotation = 20 * ((mouseY - rect.height / 2) / rect.height);
-        const yRotation = -20 * ((mouseX - rect.width / 2) / rect.width);
-        
-        element.style.transform = `perspective(1000px) rotateX(${xRotation}deg) rotateY(${yRotation}deg) scale(1.05)`;
-    });
-
-    element.addEventListener('mouseleave', () => {
-        element.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
-    });
-
-    // Update rect on window resize
-    window.addEventListener('resize', () => {
-        rect = element.getBoundingClientRect();
-    });
 }
