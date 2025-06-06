@@ -22,6 +22,7 @@ Welcome to the repository for my personal portfolio website.
 - Mobile-first approach
 
 ## 📂 Project Structure
+```
 │
 ├── index.html         # Main HTML file
 ├── styles.css         # Main stylesheet
@@ -29,6 +30,7 @@ Welcome to the repository for my personal portfolio website.
 ├── favicon.svg        # Favicon
 ├── resume.pdf         # Downloadable resume
 └── README.md          # This file
+```
 
 ## 📱 Mobile-Friendly Features
 
