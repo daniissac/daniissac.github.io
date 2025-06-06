@@ -3,6 +3,12 @@ document.addEventListener('DOMContentLoaded', function() {
     initScrollAnimations();
     fetchGitHubProjects();
     initMobileMenu();
+    initThemeToggle();
+    initScrollProgress();
+    initBackToTop();
+    initSkillBars();
+    initFadeInAnimations();
+    initEnhancedHeader();
     
     // Set current year in footer
     document.getElementById('current-year').textContent = new Date().getFullYear();
@@ -34,7 +40,7 @@ function initMobileMenu() {
 
 // Typewriter effect
 function initTypewriter() {
-    const texts = ['Technical Content Developer', 'Problem Solver', 'Network Engineer', 'Technical Consultant'];
+    const texts = ['Technical Education Content Developer', 'Network Support Engineer', 'Cisco Certified Professional', 'Network Troubleshooting Expert'];
     const typedTextElement = document.getElementById('typed-text');
     let textIndex = 0;
     let charIndex = 0;
@@ -138,7 +144,11 @@ function fetchGitHubProjects() {
                 .map(project => ({
                     name: project.name,
                     description: project.description || 'No description available',
-                    html_url: project.html_url || `https://github.com/daniissac/${project.name}`
+                    html_url: project.html_url || `https://github.com/daniissac/${project.name}`,
+                    language: project.language,
+                    topics: project.topics || [],
+                    stars: project.stargazers_count || 0,
+                    updated_at: project.updated_at
                 }));
 
             // Cache for 1 hour
@@ -168,14 +178,132 @@ function displayProjects(projects) {
     projects.forEach(project => {
         const card = document.createElement('div');
         card.className = 'project-card';
+        
+        const languageTag = project.language ? `<span class="language-tag">${project.language}</span>` : '';
+        const topicTags = project.topics.slice(0, 3).map(topic => `<span class="topic-tag">${topic}</span>`).join('');
+        const starsDisplay = project.stars > 0 ? `<span class="stars">⭐ ${project.stars}</span>` : '';
+        const updatedDate = new Date(project.updated_at).toLocaleDateString();
+        
         card.innerHTML = `
-            <h3>${project.name}</h3>
+            <div class="project-header">
+                <h3>${project.name}</h3>
+                <div class="project-stats">
+                    ${starsDisplay}
+                    ${languageTag}
+                </div>
+            </div>
             <p>${project.description}</p>
-            <a href="${project.html_url}" target="_blank" rel="noopener noreferrer">View Project →</a>
+            <div class="project-tags">
+                ${topicTags}
+            </div>
+            <div class="project-footer">
+                <span class="updated-date">Updated: ${updatedDate}</span>
+                <a href="${project.html_url}" target="_blank" rel="noopener noreferrer">View Project →</a>
+            </div>
         `;
         
         projectsGrid.appendChild(card);
     });
 
     container.appendChild(projectsGrid);
+}
+
+// Dark mode toggle functionality
+function initThemeToggle() {
+    const themeToggle = document.getElementById('theme-toggle');
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    
+    // Apply saved theme
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    
+    themeToggle.addEventListener('click', function() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+    });
+}
+
+// Scroll progress bar
+function initScrollProgress() {
+    const progressBar = document.getElementById('scroll-progress');
+    
+    window.addEventListener('scroll', function() {
+        const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (window.scrollY / windowHeight) * 100;
+        progressBar.style.width = scrolled + '%';
+    });
+}
+
+// Back to top button
+function initBackToTop() {
+    const backToTopButton = document.getElementById('back-to-top');
+    
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 300) {
+            backToTopButton.classList.add('visible');
+        } else {
+            backToTopButton.classList.remove('visible');
+        }
+    });
+    
+    backToTopButton.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
+// Skill bars animation
+function initSkillBars() {
+    const skillBars = document.querySelectorAll('.skill-progress');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const skillLevel = entry.target.getAttribute('data-skill');
+                entry.target.style.setProperty('--skill-width', skillLevel + '%');
+                entry.target.classList.add('animate');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    skillBars.forEach(bar => observer.observe(bar));
+}
+
+// Fade in animations on scroll
+function initFadeInAnimations() {
+    const animatedElements = document.querySelectorAll('section, .highlight-item, .skill-category, .timeline-item, .project-card');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in', 'visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { 
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+    
+    animatedElements.forEach(element => {
+        element.classList.add('fade-in');
+        observer.observe(element);
+    });
+}
+
+// Enhanced header scroll effect
+function initEnhancedHeader() {
+    const header = document.querySelector('header');
+    
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 100) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
 }
