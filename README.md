@@ -1,6 +1,6 @@
-# Dani Issac - Portfolio
+# Portfolio
 
-A minimal, fast-loading portfolio website for a Technical Content Developer at Cisco ThousandEyes.
+A minimal, fast-loading portfolio website
 
 ## 🌐 Live Site
 
@@ -37,17 +37,8 @@ Clean, professional portfolio showcasing:
 - **Ultra-fast loading** - No JavaScript, minimal CSS
 - **Mobile responsive** - Works on all devices
 - **Accessible** - Semantic HTML structure
-- **Professional** - Clean, focused design
-
-## 📞 Contact
-
-- **LinkedIn**: [linkedin.com/in/daniissac](https://linkedin.com/in/daniissac)
-- **GitHub**: [github.com/daniissac](https://github.com/daniissac)
+- **Professional** - Clean, focused desig
 
 ## 📄 License
 
 MIT License - see [LICENSE](LICENSE) file for details.
-
----
-
-**Built by [Dani Issac](https://github.com/daniissac) | Technical Content Developer at Cisco ThousandEyes**
