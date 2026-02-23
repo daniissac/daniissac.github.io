@@ -46,6 +46,8 @@ main {
 /* Intro */
 .intro {
     margin-bottom: 64px;
+    padding-bottom: 0;
+    border-bottom: none;
 }
 
 .intro h1 {
@@ -152,29 +154,6 @@ section h2 {
     content: "–";
     margin-right: 8px;
     color: #9ca3af;
-}
-
-/* Skills */
-.skills-list {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.skills-list li {
-    font-size: 14px;
-    color: #4b5563;
-    background: #f3f4f6;
-    border: 1px solid #e5e7eb;
-    border-radius: 6px;
-    padding: 8px 14px;
-    transition: all 0.2s ease;
-}
-
-.skills-list li:hover {
-    border-color: #0078d4;
-    color: #0078d4;
 }
 
 /* Certifications */
@@ -295,17 +274,6 @@ section h2 {
 
     .timeline-content:hover {
         border-left-color: #3b9eff;
-    }
-
-    .skills-list li {
-        color: #9ca3af;
-        background-color: #161b26;
-        border-color: #1f2937;
-    }
-
-    .skills-list li:hover {
-        border-color: #3b9eff;
-        color: #3b9eff;
     }
 
     .cta-text {
@@ -437,9 +405,4 @@ section h2 {
         color: #000000;
     }
 
-    .skills-list li {
-        background: none;
-        border-color: #d1d5db;
-        padding: 4px 10px;
-    }
 }
