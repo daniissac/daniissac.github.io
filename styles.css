@@ -8,11 +8,28 @@ html {
     scroll-behavior: smooth;
 }
 
+.skip-link {
+    position: absolute;
+    top: -100%;
+    left: 16px;
+    padding: 8px 16px;
+    background: #0078d4;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 4px;
+    z-index: 100;
+}
+
+.skip-link:focus {
+    top: 16px;
+}
+
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
     line-height: 1.6;
-    color: #171717;
-    background-color: #fafafa;
+    color: #111827;
+    background-color: #ffffff;
     font-size: 16px;
 }
 
@@ -26,7 +43,7 @@ main {
     padding: 64px 0;
 }
 
-/* Intro Section */
+/* Intro */
 .intro {
     margin-bottom: 64px;
 }
@@ -34,143 +51,166 @@ main {
 .intro h1 {
     font-size: 32px;
     font-weight: 700;
-    color: #171717;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
     letter-spacing: -0.025em;
+}
+
+.tagline {
+    font-size: 15px;
+    font-weight: 500;
+    color: #0078d4;
+    margin-bottom: 16px;
 }
 
 .subtitle {
     font-size: 16px;
     line-height: 1.6;
-    color: #525252;
+    color: #4b5563;
     margin-bottom: 24px;
     max-width: 600px;
 }
 
-.links {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-}
 
-.links a {
-    color: #525252;
-    text-decoration: none;
-    font-size: 14px;
-    padding: 8px 0;
-    border-bottom: 1px solid transparent;
-    transition: all 0.2s ease;
-}
-
-.links a:hover {
-    color: #171717;
-    border-bottom-color: #d4d4d4;
-}
-
-/* Section Styling */
+/* Sections */
 section {
     margin-bottom: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+section:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
 }
 
 section h2 {
     font-size: 18px;
     font-weight: 600;
-    color: #171717;
     margin-bottom: 24px;
     letter-spacing: -0.025em;
 }
 
-/* Timeline */
-.timeline {
-    position: relative;
-}
-
+/* Work Timeline */
 .timeline-item {
-    position: relative;
     padding-bottom: 32px;
-    border-left: 1px solid #e5e5e5;
-    padding-left: 24px;
-    margin-left: 8px;
 }
 
 .timeline-item:last-child {
     padding-bottom: 0;
-    border-left: none;
-}
-
-.timeline-item::before {
-    content: '';
-    position: absolute;
-    left: -5px;
-    top: 6px;
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background-color: #d4d4d4;
-    border: 2px solid #fafafa;
 }
 
 .timeline-content {
-    background: #ffffff;
-    border-radius: 8px;
-    padding: 20px;
-    border: 1px solid #e5e5e5;
+    padding: 12px 16px;
+    border-left: 2px solid transparent;
     transition: all 0.2s ease;
 }
 
 .timeline-content:hover {
-    border-color: #d4d4d4;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    border-left-color: #0078d4;
 }
 
 .timeline-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     gap: 16px;
 }
 
 .timeline-header h3 {
     font-size: 16px;
     font-weight: 600;
-    color: #171717;
     line-height: 1.4;
     flex: 1;
 }
 
 .timeline-date {
     font-size: 13px;
-    color: #737373;
+    color: #6b7280;
     white-space: nowrap;
     font-weight: 500;
 }
 
 .timeline-company {
     font-size: 14px;
-    color: #525252;
-    margin-bottom: 12px;
+    color: #6b7280;
+    margin-bottom: 8px;
     font-weight: 500;
 }
 
 .timeline-description {
     font-size: 14px;
-    line-height: 1.5;
-    color: #525252;
+    line-height: 1.6;
+    color: #4b5563;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
-/* Certification Links */
-.cert-link {
-    color: #171717;
+.timeline-description li::before {
+    content: "–";
+    margin-right: 8px;
+    color: #9ca3af;
+}
+
+/* Skills */
+.skills-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.skills-list li {
+    font-size: 14px;
+    color: #4b5563;
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 8px 14px;
+    transition: all 0.2s ease;
+}
+
+.skills-list li:hover {
+    border-color: #0078d4;
+    color: #0078d4;
+}
+
+/* Certifications */
+.cert-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.cert-card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: all 0.2s ease;
 }
 
-.cert-link:hover {
-    color: #0066cc;
+.cert-card:hover {
+    border-color: #0078d4;
 }
 
-/* Mobile Responsive */
+.cert-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.cert-issuer {
+    font-size: 13px;
+    color: #6b7280;
+}
+
+/* Mobile */
 @media (max-width: 640px) {
     .container {
         padding: 0 16px;
@@ -194,19 +234,6 @@ section h2 {
         margin-bottom: 20px;
     }
 
-    .links {
-        gap: 12px;
-    }
-
-    .timeline-item {
-        padding-left: 20px;
-        margin-left: 6px;
-    }
-
-    .timeline-content {
-        padding: 16px;
-    }
-
     .timeline-header {
         flex-direction: column;
         align-items: flex-start;
@@ -223,7 +250,7 @@ section h2 {
 
     .timeline-company {
         font-size: 13px;
-        margin-bottom: 8px;
+        margin-bottom: 6px;
     }
 
     .timeline-description {
@@ -234,64 +261,185 @@ section h2 {
         font-size: 16px;
         margin-bottom: 20px;
     }
+
+    .cert-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
-/* Dark mode support (optional) */
+/* Dark mode */
 @media (prefers-color-scheme: dark) {
     body {
-        background-color: #0a0a0a;
-        color: #ededed;
+        background-color: #0f1117;
+        color: #f3f4f6;
     }
 
-    .intro h1,
-    section h2,
-    .timeline-header h3 {
-        color: #ededed;
+    .tagline {
+        color: #3b9eff;
     }
 
     .subtitle,
-    .timeline-company,
     .timeline-description {
-        color: #a3a3a3;
+        color: #9ca3af;
     }
 
-    .links a {
-        color: #a3a3a3;
+    .timeline-company,
+    .timeline-date {
+        color: #6b7280;
     }
 
-    .links a:hover {
-        color: #ededed;
-        border-bottom-color: #525252;
-    }
 
-    .timeline-content {
-        background-color: #111111;
-        border-color: #262626;
+    section {
+        border-bottom-color: #1f2937;
     }
 
     .timeline-content:hover {
-        border-color: #404040;
-        box-shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.1);
+        border-left-color: #3b9eff;
+    }
+
+    .skills-list li {
+        color: #9ca3af;
+        background-color: #161b26;
+        border-color: #1f2937;
+    }
+
+    .skills-list li:hover {
+        border-color: #3b9eff;
+        color: #3b9eff;
+    }
+
+    .cta-text {
+        color: #9ca3af;
+    }
+
+    .cta-button {
+        background-color: #3b9eff;
+        color: #0f1117;
+    }
+
+    .cta-button:hover {
+        background-color: #6cb4ff;
+    }
+
+    .cert-card {
+        border-color: #1f2937;
+    }
+
+    .cert-card:hover {
+        border-color: #3b9eff;
+    }
+
+    .cert-name {
+        color: #f3f4f6;
+    }
+
+    .cert-issuer {
+        color: #6b7280;
+    }
+}
+
+/* CTA */
+.cta {
+    text-align: center;
+}
+
+.cta-text {
+    font-size: 15px;
+    color: #4b5563;
+    margin-bottom: 24px;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 12px 28px;
+    background-color: #0078d4;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.cta-button:hover {
+    background-color: #005a9e;
+}
+
+/* Scroll animations */
+.fade-in {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fade-in {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
+/* Print */
+@media print {
+    body {
+        background: #ffffff;
+        color: #000000;
+        font-size: 12px;
+    }
+
+    .container {
+        max-width: 100%;
+        padding: 0;
+    }
+
+    main {
+        padding: 0;
+    }
+
+    .intro {
+        margin-bottom: 32px;
+    }
+
+    section {
+        margin-bottom: 24px;
+        padding-bottom: 24px;
     }
 
     .timeline-item {
-        border-left-color: #262626;
+        padding-bottom: 20px;
     }
 
-    .timeline-item::before {
-        background-color: #525252;
-        border-color: #0a0a0a;
+    .timeline-content {
+        padding: 0;
+        border-left: none;
     }
 
-    .timeline-date {
-        color: #737373;
+    .timeline-content:hover {
+        border-left-color: transparent;
     }
 
-    .cert-link {
-        color: #ededed;
+    .cert-grid {
+        gap: 8px;
     }
 
-    .cert-link:hover {
-        color: #60a5fa;
+    .cert-card {
+        padding: 8px 12px;
+        border-color: #d1d5db;
+    }
+
+    .cert-name {
+        color: #000000;
+    }
+
+    .skills-list li {
+        background: none;
+        border-color: #d1d5db;
+        padding: 4px 10px;
     }
 }
