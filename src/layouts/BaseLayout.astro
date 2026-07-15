@@ -2,6 +2,8 @@
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { SITE, SOCIAL } from "../config";
+import "@fontsource-variable/manrope/wght.css";
+import "@fontsource-variable/jetbrains-mono/wght.css";
 import "../styles/global.css";
 
 interface Props {
@@ -72,5 +74,6 @@ const schemas = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
       <slot />
     </main>
     <Footer />
+    <script src="../scripts/motion.ts"></script>
   </body>
 </html>
