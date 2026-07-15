@@ -6,7 +6,7 @@ import {
   GitBranch as Github,
 } from "@lucide/astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { CERTIFICATIONS, EXPERIENCE, SITE, SOCIAL, TECHNICAL_FOCUS } from "../config";
+import { CERTIFICATIONS, EXPERIENCE, PRACTICE_AREAS, SITE, SOCIAL } from "../config";
 
 const personSchema = {
   "@context": "https://schema.org",
@@ -92,19 +92,18 @@ const personSchema = {
   <section class="content-section focus-section">
     <div class="shell">
       <div class="section-heading">
-        <p class="eyebrow">Technical focus</p>
-        <h2>The tools serve the diagnostic question</h2>
+        <p class="eyebrow">Practice</p>
+        <h2>How I approach network problems</h2>
       </div>
-      <div class="focus-grid">
-        {TECHNICAL_FOCUS.map((group) => (
-          <div class="focus-group">
-            <h3>{group.label}</h3>
-            <ul class="tag-list" aria-label={`${group.label} skills`}>
-              {group.items.map((item) => <li>{item}</li>)}
-            </ul>
-          </div>
+      <ol class="pillar-grid">
+        {PRACTICE_AREAS.map((area, index) => (
+          <li>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <h3>{area.label}</h3>
+            <p>{area.summary}</p>
+          </li>
         ))}
-      </div>
+      </ol>
     </div>
   </section>
 

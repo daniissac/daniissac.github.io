@@ -55,27 +55,26 @@ export const CERTIFICATIONS = [
     url: "https://www.credly.com/badges/ecb54727-faa8-4895-8aa9-d77cb51feb70/linked_in_profile",
   },
   {
-    name: "AWS Solutions Architect",
+    name: "AWS Certified Solutions Architect - Associate",
     issuer: "AWS",
     url: "https://www.credly.com/badges/5587d2f8-f5d9-49fa-be50-d0e97076a578/linked_in_profile",
   },
 ];
 
-export const TECHNICAL_FOCUS = [
+export const PRACTICE_AREAS = [
   {
-    label: "Networks",
-    items: ["TCP/IP", "DNS", "HTTP", "Routing", "Switching", "LAN/WAN"],
+    label: "Diagnose the behavior",
+    summary:
+      "Trace failures across DNS, routing, transport, and application paths using packet captures, command-line evidence, and telemetry.",
   },
   {
-    label: "Observability",
-    items: ["Telemetry", "Synthetic Monitoring", "Path Analysis", "Diagnostics"],
+    label: "Make evidence useful",
+    summary:
+      "Connect synthetic tests, path analysis, and network signals to the decision a team is actually trying to make.",
   },
   {
-    label: "Tools",
-    items: ["Wireshark", "tcpdump", "curl", "dig", "Linux", "Docker"],
-  },
-  {
-    label: "Automation",
-    items: ["Python", "Shell", "Git", "CI/CD"],
+    label: "Teach through working examples",
+    summary:
+      "Build demonstrations, documentation, and Python tools that make complex network behavior observable and repeatable.",
   },
 ];

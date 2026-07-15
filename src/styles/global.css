@@ -1044,30 +1044,6 @@ main {
   font-size: 12px;
 }
 
-.focus-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0;
-  border-top: 1px solid var(--line-strong);
-}
-
-.focus-group {
-  min-height: 180px;
-  padding: 28px 30px 28px 0;
-  border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-
-.focus-group:nth-child(even) {
-  padding-left: 30px;
-  padding-right: 0;
-  border-right: 0;
-}
-
-.focus-group h3 {
-  margin-bottom: 22px;
-}
-
 .cert-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -1296,7 +1272,6 @@ main {
   .cert-grid,
   .proof-grid,
   .pillar-grid,
-  .focus-grid,
   .about-intro-grid {
     grid-template-columns: 1fr;
   }
@@ -1370,13 +1345,6 @@ main {
 
   .timeline-heading span {
     white-space: normal;
-  }
-
-  .focus-group,
-  .focus-group:nth-child(even) {
-    min-height: 0;
-    padding: 26px 0;
-    border-right: 0;
   }
 
   .footer-grid {
