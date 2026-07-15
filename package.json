@@ -8,6 +8,7 @@
     "start": "astro dev",
     "build": "astro build",
     "check": "astro check",
+    "new:article": "node scripts/new-article.mjs",
     "preview": "astro preview",
     "test": "npm run check && npm run build"
   },
