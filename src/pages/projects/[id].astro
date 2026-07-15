@@ -1,0 +1,79 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import { ArrowLeft, ArrowUpRight, GitBranch as Github } from "@lucide/astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { SITE } from "../../config";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+  return projects.map((entry) => ({ params: { id: entry.id }, props: { entry } }));
+}
+
+interface Props {
+  entry: CollectionEntry<"projects">;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { data } = entry;
+const projectUrl = new URL(`/projects/${entry.id}/`, Astro.site).toString();
+const projectSchema = {
+  "@context": "https://schema.org",
+  "@type": data.projectType === "webApplication" ? "WebApplication" : "SoftwareSourceCode",
+  name: data.title,
+  description: data.description,
+  url: data.demoUrl ?? projectUrl,
+  codeRepository: data.repositoryUrl,
+  author: { "@type": "Person", name: SITE.name, url: SITE.url },
+  keywords: data.tags.join(", "),
+};
+---
+
+<BaseLayout
+  title={`${data.title} | Dani Issac`}
+  description={data.description}
+  image={data.image}
+  jsonLd={projectSchema}
+>
+  <article class="project-page">
+    <header class="project-hero shell">
+      <a class="back-link" href="/projects/"><ArrowLeft size={16} aria-hidden="true" /> Projects</a>
+      <div class="project-hero-grid">
+        <div>
+          <div class="project-card-topline project-page-topline">
+            <span class:list={["status-label", `status-${data.status}`]}>{data.status}</span>
+            <span class="eyebrow">Project overview</span>
+          </div>
+          <h1>{data.title}</h1>
+          <p class="project-deck">{data.description}</p>
+          <ul class="tag-list" aria-label={`${data.title} technologies`}>
+            {data.tags.map((tag) => <li>{tag}</li>)}
+          </ul>
+          <div class="action-row">
+            {data.demoUrl && (
+              <a class="button button-primary" href={data.demoUrl} target="_blank" rel="noopener noreferrer">
+                {data.projectType === "webApplication" ? "Open experience" : "Project page"} <ArrowUpRight size={17} aria-hidden="true" />
+              </a>
+            )}
+            <a class="button button-secondary" href={data.repositoryUrl} target="_blank" rel="noopener noreferrer">
+              View source <Github size={17} aria-hidden="true" />
+            </a>
+          </div>
+        </div>
+        <dl class="project-facts">
+          <div><dt>Status</dt><dd>{data.status}</dd></div>
+          <div><dt>Type</dt><dd>{data.projectType === "webApplication" ? "Interactive learning" : "Open-source tool"}</dd></div>
+          <div><dt>Focus</dt><dd>{data.tags.slice(0, 3).join(" / ")}</dd></div>
+        </dl>
+      </div>
+    </header>
+
+    {data.image && (
+      <figure class="project-image shell">
+        <img src={data.image} alt={data.imageAlt ?? ""} width="1440" height="758" />
+      </figure>
+    )}
+
+    <div class="prose project-prose shell reading-shell"><Content /></div>
+  </article>
+</BaseLayout>

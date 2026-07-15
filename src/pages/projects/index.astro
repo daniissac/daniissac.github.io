@@ -1,0 +1,34 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+
+const projects = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  title="Projects | Dani Issac"
+  description="Interactive learning experiences, network tools, and practical experiments by Dani Issac."
+>
+  <header class="page-hero shell">
+    <p class="eyebrow">Projects</p>
+    <h1>Build the model. Test the behavior. Explain the result.</h1>
+    <p>
+      A curated set of learning experiences and network tools, presented with their current status, boundaries,
+      and the decisions behind them.
+    </p>
+  </header>
+
+  <section class="content-section">
+    <div class="shell">
+      <div class="section-heading">
+        <p class="eyebrow">Selected work</p>
+        <h2>Projects with a clear job to do</h2>
+        <p>Interactive learning, observability, configuration safety, and network lab automation.</p>
+      </div>
+      <div class="project-grid project-grid-wide">
+        {projects.map((project) => <ProjectCard project={project} />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

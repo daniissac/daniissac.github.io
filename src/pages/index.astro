@@ -1,0 +1,186 @@
+---
+import { getCollection } from "astro:content";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  BriefcaseBusiness as Linkedin,
+  GitBranch as Github,
+} from "@lucide/astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { SITE, SOCIAL } from "../config";
+
+const projects = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order);
+const writing = (await getCollection("writing", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf(),
+);
+const selectedProjects = projects.filter((project) => project.data.featured).slice(0, 3);
+const latestWriting = writing.slice(0, 3);
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: SITE.name,
+  url: SITE.url,
+  jobTitle: SITE.authorRole,
+  sameAs: [SOCIAL.github, SOCIAL.linkedin],
+  knowsAbout: [
+    "Computer networking",
+    "Internet observability",
+    "Network telemetry",
+    "Network diagnostics",
+    "Technical education",
+    "Network automation",
+  ],
+};
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat("en", { year: "numeric", month: "short", day: "numeric" }).format(date);
+---
+
+<BaseLayout jsonLd={personSchema}>
+  <section class="hero shell hero-home">
+    <div class="hero-grid">
+      <div class="hero-copy" data-reveal="hero-copy">
+        <p class="hero-kicker"><span class="signal-pulse"></span> Network Engineer + Technical Educator</p>
+        <h1>Dani Issac</h1>
+        <p class="hero-lede">I build, explain, and automate modern networks.</p>
+        <p class="hero-support">
+          I turn network behavior, telemetry, and troubleshooting workflows into clear explanations, practical
+          tools, and useful learning experiences.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="/projects/">
+            Explore projects <ArrowRight size={17} aria-hidden="true" />
+          </a>
+          <a class="button button-secondary" href="/writing/">
+            Explore writing <ArrowUpRight size={17} aria-hidden="true" />
+          </a>
+        </div>
+        <div class="hero-social">
+          <a href={SOCIAL.linkedin} target="_blank" rel="noopener noreferrer"><Linkedin size={17} aria-hidden="true" /> LinkedIn</a>
+          <a href={SOCIAL.github} target="_blank" rel="noopener noreferrer"><Github size={17} aria-hidden="true" /> GitHub</a>
+        </div>
+      </div>
+
+      <div class="network-panel" data-reveal="hero-panel" aria-label="Diagnostic method: observe, diagnose, explain">
+        <div class="network-panel-header">
+          <span>DIAGNOSTIC METHOD</span>
+          <span class="panel-mode">EVIDENCE TO ACTION</span>
+        </div>
+        <div class="network-route" aria-hidden="true">
+          <div class="route-node node-observe"><span>01</span><b>OBSERVE</b></div>
+          <div class="route-line line-blue"><i></i><i></i><i></i></div>
+          <div class="route-node node-diagnose"><span>02</span><b>DIAGNOSE</b></div>
+          <div class="route-line line-green"><i></i><i></i><i></i></div>
+          <div class="route-node node-explain"><span>03</span><b>EXPLAIN</b></div>
+        </div>
+        <div class="network-readout">
+          <div><span>evidence</span><strong>packets + signals</strong></div>
+          <div><span>method</span><strong>trace + test</strong></div>
+          <div><span>output</span><strong>explanation</strong></div>
+        </div>
+        <p class="network-caption">Start with observable behavior. End with something people can understand and use.</p>
+      </div>
+    </div>
+    <div class="hero-index" data-reveal="hero-index">
+      <span>01 / 04</span>
+      <span>NETWORKS</span>
+      <span>OBSERVABILITY</span>
+      <span>TECHNICAL LEARNING</span>
+      <span>AUTOMATION</span>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="shell">
+      <div class="section-heading split-heading">
+        <div>
+          <p class="eyebrow">Writing</p>
+          <h2>Network behavior, explained clearly</h2>
+        </div>
+        <a class="text-link" href="/writing/">View writing <ArrowRight size={16} aria-hidden="true" /></a>
+      </div>
+
+      {latestWriting.length > 0 ? (
+        <div class="article-grid">
+          {latestWriting.map((post) => (
+            <article class="article-card">
+              <p class="article-meta"><time datetime={post.data.publishedDate.toISOString()}>{formatDate(post.data.publishedDate)}</time></p>
+              <h3><a href={`/writing/${post.id}/`}>{post.data.title}</a></h3>
+              <p>{post.data.description}</p>
+              <a class="text-link" href={`/writing/${post.id}/`}>Read article <ArrowRight size={16} aria-hidden="true" /></a>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <div class="writing-empty">
+          <div>
+            <p class="eyebrow">First article in progress</p>
+            <h3>What happens when you open a website?</h3>
+          </div>
+          <p>
+            The first long-form piece will connect DNS, transport, routing, and browser behavior into one practical
+            mental model. Writing is published here first and distributed through LinkedIn.
+          </p>
+          <a class="text-link" href={SOCIAL.linkedin} target="_blank" rel="noopener noreferrer">
+            Follow new articles on LinkedIn <ArrowUpRight size={16} aria-hidden="true" />
+          </a>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="content-section projects-section">
+    <div class="shell">
+      <div class="section-heading split-heading">
+        <div>
+          <p class="eyebrow">Selected projects</p>
+          <h2>Build, explain, and automate modern networks</h2>
+        </div>
+        <a class="text-link" href="/projects/">All projects <ArrowRight size={16} aria-hidden="true" /></a>
+      </div>
+      <div class="project-grid project-grid-home">
+        {selectedProjects.map((project) => <ProjectCard project={project} compact />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section proof-section">
+    <div class="shell">
+      <div class="section-heading">
+        <p class="eyebrow">Experience</p>
+        <h2>Built in the field, explained for people</h2>
+      </div>
+      <div class="proof-grid">
+        <div>
+          <strong>Since 2019</strong>
+          <span>Enterprise consulting, network support, and technical learning.</span>
+        </div>
+        <div>
+          <strong>Network Engineer + Technical Educator</strong>
+          <span>Network diagnostics, observability, technical content, and practical learning workflows.</span>
+        </div>
+        <div>
+          <strong>Build + explain</strong>
+          <span>Interactive lessons, technical demonstrations, Python tools, and practical documentation.</span>
+        </div>
+      </div>
+      <a class="text-link proof-link" href="/about/">Professional background and credentials <ArrowRight size={16} aria-hidden="true" /></a>
+    </div>
+  </section>
+
+  <section class="closing-section shell">
+    <p class="eyebrow">Connect</p>
+    <h2>Interested in networks, observability, or technical learning?</h2>
+    <p>Follow the work on LinkedIn, explore the source on GitHub, or browse the project notes.</p>
+    <div class="action-row">
+      <a class="button button-primary" href={SOCIAL.linkedin} target="_blank" rel="noopener noreferrer">
+        Connect on LinkedIn <ArrowUpRight size={17} aria-hidden="true" />
+      </a>
+      <a class="button button-secondary" href={SOCIAL.github} target="_blank" rel="noopener noreferrer">
+        View GitHub <Github size={17} aria-hidden="true" />
+      </a>
+    </div>
+  </section>
+</BaseLayout>

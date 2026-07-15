@@ -1,0 +1,76 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import { ArrowLeft } from "@lucide/astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { SITE } from "../../config";
+
+export async function getStaticPaths() {
+  const writing = await getCollection("writing", ({ data }) => import.meta.env.DEV || !data.draft);
+  return writing.map((entry) => ({ params: { id: entry.id }, props: { entry } }));
+}
+
+interface Props {
+  entry: CollectionEntry<"writing">;
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+const wordCount = (entry.body ?? "").trim().split(/\s+/).filter(Boolean).length;
+const readingMinutes = Math.max(1, Math.ceil(wordCount / 220));
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat("en", { year: "numeric", month: "long", day: "numeric" }).format(date);
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: entry.data.title,
+  description: entry.data.description,
+  datePublished: entry.data.publishedDate.toISOString(),
+  dateModified: (entry.data.updatedDate ?? entry.data.publishedDate).toISOString(),
+  author: { "@type": "Person", name: SITE.name, url: SITE.url },
+  mainEntityOfPage: new URL(`/writing/${entry.id}/`, Astro.site).toString(),
+  image: new URL(entry.data.image ?? SITE.image, Astro.site).toString(),
+};
+---
+
+<BaseLayout
+  title={`${entry.data.title} | Dani Issac`}
+  description={entry.data.description}
+  image={entry.data.image}
+  type="article"
+  jsonLd={articleSchema}
+>
+  <article class="article-page shell">
+    <a class="back-link" href="/writing/"><ArrowLeft size={16} aria-hidden="true" /> Writing</a>
+    <header class="article-header reading-shell">
+      <ul class="tag-list" aria-label="Article topics">
+        {entry.data.tags.map((tag) => <li>{tag}</li>)}
+      </ul>
+      <h1>{entry.data.title}</h1>
+      <p class="article-deck">{entry.data.description}</p>
+      <div class="article-byline">
+        <span>By Dani Issac</span>
+        <time datetime={entry.data.publishedDate.toISOString()}>{formatDate(entry.data.publishedDate)}</time>
+        <span>{readingMinutes} min read</span>
+      </div>
+    </header>
+
+    {entry.data.image && (
+      <figure class="article-figure reading-wide">
+        <img src={entry.data.image} alt={entry.data.imageAlt ?? ""} />
+      </figure>
+    )}
+
+    <div class:list={["article-layout", { "has-toc": headings.length > 2 }]}>
+      {headings.length > 2 && (
+        <aside class="article-toc" aria-label="On this page">
+          <strong>On this page</strong>
+          <ol>
+            {headings.filter((heading) => heading.depth === 2).map((heading) => <li><a href={`#${heading.slug}`}>{heading.text}</a></li>)}
+          </ol>
+        </aside>
+      )}
+      <div class="prose reading-shell"><Content /></div>
+    </div>
+  </article>
+</BaseLayout>
