@@ -1,0 +1,31 @@
+---
+import { BriefcaseBusiness as Linkedin, GitBranch as Github, Rss } from "@lucide/astro";
+import { SITE, SOCIAL } from "../config";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="shell footer-grid">
+    <div>
+      <a class="footer-brand" href="/">{SITE.name}</a>
+      <p class="footer-statement">Making complex network behavior easier to see, understand, and troubleshoot.</p>
+    </div>
+
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="/writing/">Writing</a>
+      <a href="/projects/">Projects</a>
+      <a href="/about/">About</a>
+    </nav>
+
+    <div class="footer-social">
+      <a href={SOCIAL.github} target="_blank" rel="noopener noreferrer"><Github size={16} aria-hidden="true" /> GitHub</a>
+      <a href={SOCIAL.linkedin} target="_blank" rel="noopener noreferrer"><Linkedin size={16} aria-hidden="true" /> LinkedIn</a>
+      <a href={SOCIAL.rss}><Rss size={16} aria-hidden="true" /> RSS</a>
+    </div>
+  </div>
+  <div class="shell footer-meta">
+    <span>&copy; {year} Dani Issac</span>
+    <span>Views are my own.</span>
+  </div>
+</footer>

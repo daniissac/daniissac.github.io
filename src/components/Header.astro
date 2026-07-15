@@ -1,0 +1,43 @@
+---
+import { BriefcaseBusiness as Linkedin, GitBranch as Github, Rss } from "@lucide/astro";
+import { SOCIAL } from "../config";
+
+const pathname = Astro.url.pathname;
+const navItems = [
+  { href: "/writing/", label: "Writing", match: "/writing" },
+  { href: "/projects/", label: "Projects", match: "/projects" },
+  { href: "/about/", label: "About", match: "/about" },
+];
+---
+
+<header class="site-header">
+  <div class="shell header-inner">
+    <a class="brand-link" href="/" aria-label="Dani Issac home">
+      <span class="brand-mark" aria-hidden="true">DI</span>
+      <span class="brand-name">Dani Issac</span>
+    </a>
+
+    <nav class="primary-nav" aria-label="Primary navigation">
+      {navItems.map((item) => {
+        const active = pathname.startsWith(item.match);
+        return (
+          <a class:list={["nav-link", { active }]} href={item.href} aria-current={active ? "page" : undefined}>
+            {item.label}
+          </a>
+        );
+      })}
+    </nav>
+
+    <div class="header-social" aria-label="Dani Issac elsewhere">
+      <a class="icon-link" href={SOCIAL.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
+        <Github size={18} aria-hidden="true" />
+      </a>
+      <a class="icon-link" href={SOCIAL.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
+        <Linkedin size={18} aria-hidden="true" />
+      </a>
+      <a class="icon-link" href={SOCIAL.rss} aria-label="RSS feed" title="RSS feed">
+        <Rss size={18} aria-hidden="true" />
+      </a>
+    </div>
+  </div>
+</header>

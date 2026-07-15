@@ -1,0 +1,61 @@
+---
+import { getCollection } from "astro:content";
+import { ArrowRight, ArrowUpRight } from "@lucide/astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+
+const projects = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order);
+const flagship = projects.find((project) => project.id === "internet-in-motion");
+const supporting = projects.filter((project) => project.id !== "internet-in-motion");
+---
+
+<BaseLayout
+  title="Projects | Dani Issac"
+  description="Interactive learning experiences, network tools, and practical experiments by Dani Issac."
+>
+  <header class="page-hero shell">
+    <p class="eyebrow">Projects</p>
+    <h1>Build the model. Test the behavior. Explain the result.</h1>
+    <p>
+      A curated set of learning experiences and network tools, presented with their current status, boundaries,
+      and the decisions behind them.
+    </p>
+  </header>
+
+  {flagship && (
+    <section class="content-section project-feature-index">
+      <div class="shell flagship-layout">
+        <a class="flagship-media" href={flagship.data.demoUrl} aria-label="Open Internet in Motion">
+          <img src={flagship.data.image} alt={flagship.data.imageAlt} width="1440" height="758" />
+        </a>
+        <div class="flagship-copy">
+          <div class="project-card-topline">
+            <p class="eyebrow">Flagship</p>
+            <span class="status-label status-active">active</span>
+          </div>
+          <h2>{flagship.data.title}</h2>
+          <p class="flagship-lede">{flagship.data.description}</p>
+          <ul class="tag-list" aria-label={`${flagship.data.title} topics`}>
+            {flagship.data.tags.map((tag) => <li>{tag}</li>)}
+          </ul>
+          <div class="action-row">
+            <a class="button button-primary" href={flagship.data.demoUrl}>Open experience <ArrowUpRight size={17} aria-hidden="true" /></a>
+            <a class="button button-quiet" href={`/projects/${flagship.id}/`}>Case study <ArrowRight size={17} aria-hidden="true" /></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="content-section">
+    <div class="shell">
+      <div class="section-heading">
+        <p class="eyebrow">Tools and labs</p>
+        <h2>Selected for relevance, not volume</h2>
+      </div>
+      <div class="project-grid project-grid-wide">
+        {supporting.map((project) => <ProjectCard project={project} />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

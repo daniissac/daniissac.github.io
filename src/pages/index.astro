@@ -1,0 +1,194 @@
+---
+import { getCollection } from "astro:content";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  BriefcaseBusiness as Linkedin,
+  GitBranch as Github,
+} from "@lucide/astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { SITE, SOCIAL } from "../config";
+
+const projects = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order);
+const writing = (await getCollection("writing", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf(),
+);
+const flagship = projects.find((project) => project.id === "internet-in-motion");
+const selectedProjects = projects.filter((project) => project.data.featured && project.id !== "internet-in-motion").slice(0, 3);
+const latestWriting = writing.slice(0, 3);
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: SITE.name,
+  url: SITE.url,
+  jobTitle: SITE.authorRole,
+  sameAs: [SOCIAL.github, SOCIAL.linkedin],
+  knowsAbout: [
+    "Computer networking",
+    "Internet observability",
+    "ThousandEyes",
+    "Network diagnostics",
+    "Technical education",
+    "Network automation",
+  ],
+};
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat("en", { year: "numeric", month: "short", day: "numeric" }).format(date);
+---
+
+<BaseLayout jsonLd={personSchema}>
+  <section class="hero shell">
+    <ul class="topic-line" aria-label="Areas of focus">
+      <li><span class="topic-dot dot-blue"></span>Networks</li>
+      <li><span class="topic-dot dot-green"></span>Observability</li>
+      <li><span class="topic-dot dot-coral"></span>Technical learning</li>
+    </ul>
+    <h1>Dani Issac</h1>
+    <p class="hero-lede">I make complex network behavior easier to see, understand, and troubleshoot.</p>
+    <p class="hero-support">
+      Network engineer, ThousandEyes SME, and technical learning designer building visual explainers,
+      practical labs, and open-source tools.
+    </p>
+    <div class="hero-actions">
+      <a class="button button-primary" href="/internet-in-motion/">
+        Explore Internet in Motion <ArrowUpRight size={17} aria-hidden="true" />
+      </a>
+      <a class="button button-secondary" href="/writing/">
+        Read the writing <ArrowRight size={17} aria-hidden="true" />
+      </a>
+    </div>
+    <div class="hero-social">
+      <a href={SOCIAL.linkedin} target="_blank" rel="noopener noreferrer"><Linkedin size={17} aria-hidden="true" /> LinkedIn</a>
+      <a href={SOCIAL.github} target="_blank" rel="noopener noreferrer"><Github size={17} aria-hidden="true" /> GitHub</a>
+    </div>
+  </section>
+
+  {flagship && (
+    <section class="content-section flagship-section">
+      <div class="shell">
+        <div class="section-heading split-heading">
+          <div>
+            <p class="eyebrow">Flagship learning experience</p>
+            <h2>Internet in Motion</h2>
+          </div>
+          <span class="status-label status-active">active</span>
+        </div>
+
+        <div class="flagship-layout">
+          <a class="flagship-media" href={flagship.data.demoUrl} aria-label="Open Internet in Motion">
+            <img src={flagship.data.image} alt={flagship.data.imageAlt} width="1440" height="758" loading="eager" />
+          </a>
+          <div class="flagship-copy">
+            <p class="flagship-lede">{flagship.data.description}</p>
+            <ul class="feature-list">
+              <li>Eight connected chapters follow a website request from device to server and back.</li>
+              <li>Pause, replay, make predictions, and change network conditions at your own pace.</li>
+              <li>A final Packet Playground connects DNS, paths, transport, latency, bandwidth, and loss.</li>
+            </ul>
+            <div class="action-row">
+              <a class="button button-primary" href={flagship.data.demoUrl}>
+                Open the experience <ArrowUpRight size={17} aria-hidden="true" />
+              </a>
+              <a class="button button-quiet" href={`/projects/${flagship.id}/`}>
+                Read the case study <ArrowRight size={17} aria-hidden="true" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="content-section">
+    <div class="shell">
+      <div class="section-heading split-heading">
+        <div>
+          <p class="eyebrow">Writing</p>
+          <h2>Clear explanations, owned here</h2>
+        </div>
+        <a class="text-link" href="/writing/">View writing <ArrowRight size={16} aria-hidden="true" /></a>
+      </div>
+
+      {latestWriting.length > 0 ? (
+        <div class="article-grid">
+          {latestWriting.map((post) => (
+            <article class="article-card">
+              <p class="article-meta"><time datetime={post.data.publishedDate.toISOString()}>{formatDate(post.data.publishedDate)}</time></p>
+              <h3><a href={`/writing/${post.id}/`}>{post.data.title}</a></h3>
+              <p>{post.data.description}</p>
+              <a class="text-link" href={`/writing/${post.id}/`}>Read article <ArrowRight size={16} aria-hidden="true" /></a>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <div class="writing-empty">
+          <div>
+            <p class="eyebrow">First article in progress</p>
+            <h3>What happens when you open a website?</h3>
+          </div>
+          <p>
+            The first long-form piece will connect DNS, transport, routing, and browser behavior into one practical
+            mental model. The interactive version is available now.
+          </p>
+          <a class="text-link" href="/internet-in-motion/">Start with the interactive guide <ArrowUpRight size={16} aria-hidden="true" /></a>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="content-section projects-section">
+    <div class="shell">
+      <div class="section-heading split-heading">
+        <div>
+          <p class="eyebrow">Selected projects</p>
+          <h2>Tools for understanding and operating networks</h2>
+        </div>
+        <a class="text-link" href="/projects/">All projects <ArrowRight size={16} aria-hidden="true" /></a>
+      </div>
+      <div class="project-grid">
+        {selectedProjects.map((project) => <ProjectCard project={project} compact />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section proof-section">
+    <div class="shell">
+      <div class="section-heading">
+        <p class="eyebrow">Experience</p>
+        <h2>Built in the field, explained for people</h2>
+      </div>
+      <div class="proof-grid">
+        <div>
+          <strong>Since 2019</strong>
+          <span>Cisco experience across consulting, enterprise support, and technical learning.</span>
+        </div>
+        <div>
+          <strong>ThousandEyes SME</strong>
+          <span>Deployment guidance, network diagnostics, observability, and troubleshooting workflows.</span>
+        </div>
+        <div>
+          <strong>Build + explain</strong>
+          <span>Interactive lessons, technical demonstrations, Python tools, and practical documentation.</span>
+        </div>
+      </div>
+      <a class="text-link proof-link" href="/about/">Professional background and credentials <ArrowRight size={16} aria-hidden="true" /></a>
+    </div>
+  </section>
+
+  <section class="closing-section shell">
+    <p class="eyebrow">Connect</p>
+    <h2>Interested in networks, observability, or technical learning?</h2>
+    <p>Follow the work on LinkedIn, explore the source on GitHub, or start with the flagship project.</p>
+    <div class="action-row">
+      <a class="button button-primary" href={SOCIAL.linkedin} target="_blank" rel="noopener noreferrer">
+        Connect on LinkedIn <ArrowUpRight size={17} aria-hidden="true" />
+      </a>
+      <a class="button button-secondary" href={SOCIAL.github} target="_blank" rel="noopener noreferrer">
+        View GitHub <Github size={17} aria-hidden="true" />
+      </a>
+    </div>
+  </section>
+</BaseLayout>

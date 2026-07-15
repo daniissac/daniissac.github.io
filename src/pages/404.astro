@@ -1,0 +1,13 @@
+---
+import { ArrowLeft } from "@lucide/astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Page not found | Dani Issac" description="The requested page could not be found." noindex>
+  <section class="not-found shell reading-shell">
+    <p class="eyebrow">404</p>
+    <h1>This path does not lead anywhere yet.</h1>
+    <p>The page may have moved, or the address may be incomplete.</p>
+    <a class="button button-primary" href="/"><ArrowLeft size={17} aria-hidden="true" /> Back to the homepage</a>
+  </section>
+</BaseLayout>
