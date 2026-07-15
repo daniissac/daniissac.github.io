@@ -2,10 +2,10 @@ export const SITE = {
   name: "Dani Issac",
   defaultTitle: "Dani Issac | Networks, Observability, and Technical Learning",
   description:
-    "Network engineer and ThousandEyes SME building visual explainers, practical labs, and open-source tools that make complex network behavior easier to understand.",
+    "Network Engineer + Technical Educator building visual explainers, practical labs, and open-source tools that make complex network behavior easier to understand.",
   url: "https://daniissac.com",
   image: "/og.png",
-  authorRole: "Network Engineer and Technical Learning Designer",
+  authorRole: "Network Engineer + Technical Educator",
 };
 
 export const SOCIAL = {
