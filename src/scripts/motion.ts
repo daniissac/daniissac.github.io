@@ -4,7 +4,7 @@ import Lenis from "lenis";
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 if (!reducedMotion) {
-  const lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
+  const lenis = new Lenis({ lerp: 0.18, smoothWheel: true, wheelMultiplier: 1.08 });
   const raf = (time: number) => {
     lenis.raf(time);
     window.requestAnimationFrame(raf);
