@@ -1,5 +1,5 @@
 ---
-import { BriefcaseBusiness as Linkedin, GitBranch as Github, Rss } from "@lucide/astro";
+import { BriefcaseBusiness as Linkedin, GitBranch as Github } from "@lucide/astro";
 import { SOCIAL } from "../config";
 
 const pathname = Astro.url.pathname;
@@ -34,9 +34,6 @@ const navItems = [
       </a>
       <a class="icon-link" href={SOCIAL.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
         <Linkedin size={18} aria-hidden="true" />
-      </a>
-      <a class="icon-link" href={SOCIAL.rss} aria-label="RSS feed" title="RSS feed">
-        <Rss size={18} aria-hidden="true" />
       </a>
     </div>
   </div>
