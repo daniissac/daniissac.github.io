@@ -17,14 +17,14 @@ export const SOCIAL = {
 export const EXPERIENCE = [
   {
     role: "Technical Learning Experience Designer",
-    company: "Cisco - ThousandEyes",
+    company: "Cisco",
     period: "Nov 2024 - Present",
     summary:
-      "Builds technical demonstrations, architecture walkthroughs, and implementation guidance for ThousandEyes deployment and troubleshooting scenarios.",
+      "Builds technical demonstrations, architecture walkthroughs, and implementation guidance for network observability and troubleshooting scenarios.",
   },
   {
     role: "Network Support Engineer",
-    company: "Cisco - ThousandEyes",
+    company: "Cisco",
     period: "Apr 2022 - Oct 2024",
     summary:
       "Led enterprise diagnostics across LAN and WAN environments, translating telemetry into practical monitoring and troubleshooting decisions.",
@@ -68,7 +68,7 @@ export const TECHNICAL_FOCUS = [
   },
   {
     label: "Observability",
-    items: ["ThousandEyes", "Telemetry", "Synthetic Monitoring", "Diagnostics"],
+    items: ["Telemetry", "Synthetic Monitoring", "Path Analysis", "Diagnostics"],
   },
   {
     label: "Tools",
